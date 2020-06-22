@@ -20,21 +20,26 @@ class StoryListView extends StatefulWidget {
 class _StoryListViewState extends State<StoryListView> {
   final _textEditingController = TextEditingController();
   Iterable<StoryView> filteredStory;
+  
+  List<StoryView> _rawStory;
 
   @override
   void initState() {
-    filteredStory = widget.stories.toList();
+    _rawStory = widget.stories.toList();
+    _rawStory.sort((a,b) => a.name.compareTo(b.name));
+
+    filteredStory = _rawStory;
     _textEditingController.addListener(() {
-      final text = _textEditingController.value.text.toLowerCase();
+      final text = _textEditingController.value.text;
       setState(() {
         if (text.isEmpty) {
-          filteredStory = widget.stories;
+          filteredStory = _rawStory;
         } else {
-          final regex = RegExp(_textEditingController.value.text.toLowerCase(),
+          final regex = RegExp(_textEditingController.value.text,
               caseSensitive: false);
 
           filteredStory =
-              widget.stories.where((element) => regex.hasMatch(element.name));
+              _rawStory.where((element) => regex.hasMatch(element.name));
         }
       });
     });
@@ -55,7 +60,7 @@ class _StoryListViewState extends State<StoryListView> {
           Container(
               child: TextField(
                 controller: _textEditingController,
-                decoration: InputDecoration(hintText: 'Filter Story'),
+                decoration: InputDecoration(hintText: 'Filter Story (Regexp)'),
               ),
               height: 60),
           Expanded(

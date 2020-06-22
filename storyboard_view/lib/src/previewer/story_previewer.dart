@@ -14,8 +14,9 @@ class StoryPreviewer extends StatelessWidget {
         .singleWhere((element) => element.name == storyName)
         .storyBuilder(context);
     return Container(
+      key: UniqueKey(),
       child: storyView.decorator != null
-          ? storyView.decorator.decorate(widget)
+          ? storyView.decorator.decorate(context, widget)
           : widget,
     );
   }
