@@ -343,9 +343,9 @@ packages:
   storyboard_view_annotation:
     dependency: "direct main"
     description:
-      path: "../storyboard_view_annotation"
-      relative: true
-    source: path
+      name: storyboard_view_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.1"
   stream_channel:
     dependency: transitive
