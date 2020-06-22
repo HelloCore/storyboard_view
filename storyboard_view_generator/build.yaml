@@ -1,0 +1,15 @@
+builders:
+  storyboard_view_generator_builder:
+    target: ':storyboard_view_generator'
+    import: "package:storyboard_view_generator/src/builder.dart"
+    builder_factories: ["storyboardBuilder"]
+    build_extensions: { ".dart": [".storyboard.g.json"] }
+    runs_before: [":storyboard_combine_builder"]
+    auto_apply: dependents
+    build_to: cache
+  storyboard_combine_builder:
+    import: "package:storyboard_view_generator/src/builder.dart"
+    builder_factories: ["storyboardCombineBuilder"]
+    build_extensions: { ".dart": [".storyboard_g.dart"] }
+    auto_apply: dependents
+    build_to: source
